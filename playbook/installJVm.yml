@@ -1,0 +1,51 @@
+---
+- name: Установка Docker
+  hosts: masterNode
+  become: true
+  tasks:
+    - name: Insatall pakages
+      apt:
+        pkg: Установка зависимостей
+          - ca-certificates
+          - curl
+          - gnupg
+          - lsb-release
+          - apt-transport-https
+          - software-properties-common
+          - python3-pip
+          - python3-setuptools
+          - gcc
+          - gcc-c++
+          - autoconf
+          - automake
+          - libtool
+          - cmake
+          - zlib-devel
+          - openssl
+          - openssl-devel
+          - snappy
+          - snappy-devel
+          - bzip2
+          - bzip2-devel
+          - protobuf 
+          - protobuf-devel
+        update_cache: true
+
+    - name: Install Java
+      get_url:
+        url: http://download.oracle.com/otn-pub/java/jdk/8u112-b15/jdk-8u112-linux-x64.tar.gz
+        dest: ~/jdk-8u112-linux-x64.tar.gz
+    - name: Unarchive tar.gz
+      unarchive:
+        src: ~/jdk-8u112-linux-x64.tar.gz
+        dest: /opt/java
+    - name: Append string into bashrc
+      shell: |
+        echo "PATH=\"/opt/java/bin:\$PATH\"" >> ~/.bashrc && echo "export JAVA_HOME=\"/opt/java\"" >> ~/.bashrc
+      update_cache: true
+
+
+
+
+
+
